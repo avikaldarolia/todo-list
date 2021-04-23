@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import ToDoList from "./ToDoList";
+import Button from "@material-ui/core/Button";
+import { Input } from "@material-ui/core";
 
 const ToDoForm = () => {
   const [inputItem, setInputItem] = useState("");
@@ -15,20 +18,40 @@ const ToDoForm = () => {
     });
     setInputItem("");
   };
+  const deleteItem = (id) => {
+    // console.log("CLicked", id);
 
+    // const newItems = items.map((item, index) => {
+    //   return index !== id && item;
+    // });
+    // setItems(newItems);
+    setItems((oldItems) => {
+      return oldItems.filter((item, index) => {
+        return index !== id;
+      });
+    });
+  };
   return (
-    <div>
-      <input
+    <div className="mainContainer">
+      <Input
         type="text"
-        placeholder="What ToDo??"
+        defaultValue="What ToDo??"
         onChange={itemEvent}
         value={inputItem}
+        multiline={true}
+        
       />
-      <button onClick={handleChange}> + </button>
+      <span mr-5> </span>
+      <Button onClick={handleChange} variant="contained" color="secondary">
+        {" "}
+        +{" "}
+      </Button>
 
       <ul>
-        {items.map((item) => {
-          <ToDoList />;
+        {items.map((item, index) => {
+          return (
+            <ToDoList id={index} key={index} val={item} onSelect={deleteItem} />
+          );
         })}
       </ul>
     </div>

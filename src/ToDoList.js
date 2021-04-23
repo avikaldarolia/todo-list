@@ -3,7 +3,8 @@ import React from "react";
 const ToDoList = (props) => {
   return (
     <div>
-      return <li>{props.val}</li>;
+      <button onClick={() => props.onSelect(props.id)}> - </button>
+      <li>{props.val}</li>
     </div>
   );
 };
